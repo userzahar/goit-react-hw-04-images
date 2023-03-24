@@ -91,7 +91,7 @@ export class App extends Component {
         {images.length !== 0 && (<ImageGallery images={images} modalOpen={this.modalOpen}/>
         )}
         {loader === true && <Loader />}
-        {loadMoreButton && <Button onClick={this.loadMore} />}
+        {!loader && loadMoreButton && <Button onClick={this.loadMore} />}
         {showModal  && <Modal modalClose={this.modalClose} children={<img src={modalImgSrc} alt={modalImgAlt}/>}/>}
       </AppDiv> 
     );
