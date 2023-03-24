@@ -1,40 +1,36 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
-export class Modal extends Component {
+export function Modal({children,modalClose}) {
 
-    static propTypes = {
-        children: PropTypes.node,
-    };
-
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown);
+    const componentDidMount=()=> {
+        window.addEventListener('keydown', handleKeyDown);
+        console.log("ok")
     };
     
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown);
-    };
-
-    handleKeyDown = e => {
+    const handleKeyDown = e => {
         if (e.code === 'Escape') {
-            this.props.modalClose();
+            modalClose();
+            window.removeEventListener('keydown', handleKeyDown);
         };
     };
 
-    handleBackdropClick = e => {
+    const handleBackdropClick = e => {
         if(e.target.id === "backdrop") {
-            this.props.modalClose();
+            modalClose();
         };
     };
-
-    render() {
+    componentDidMount();
         return (
-            <DivOverlay id={"backdrop"} onClick={this.handleBackdropClick}>
+            <DivOverlay id={"backdrop"} onClick={handleBackdropClick}>
                 <DivModal>
-                    {this.props.children}
+                    {children}
                 </DivModal>
             </DivOverlay>
         );
-    };
 };
+
+ Modal.propTypes = {
+        children: PropTypes.node,
+        modalClose:PropTypes.func
+    };
