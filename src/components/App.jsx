@@ -19,6 +19,8 @@ export function App() {
   const [modalImgSrc, setModalImgSrc] = useState('');
   const [loader, setLoader] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
+  console.log("🚀 ~ setTotalPages:", setTotalPages)
+  console.log("🚀 ~ totalPages:", totalPages)
 
   useEffect(() => {
     if (!foundSearch)
