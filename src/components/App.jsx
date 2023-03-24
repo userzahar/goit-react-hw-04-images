@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 
 export function App() {
-  const [searchInputValue, setSearchInputValue]  = useState('');
+  const [searchInputValue, setSearchInputValue] = useState('');
   const [foundSearch, setFoundSearch] = useState('');
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
@@ -19,32 +19,34 @@ export function App() {
   const [modalImgSrc, setModalImgSrc] = useState('');
   const [loader, setLoader] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
-  console.log("🧨setTotalPages:", setTotalPages)
-  console.log("🚀totalPages:", totalPages)
 
   useEffect(() => {
-    setLoader(true);
-    try {
-      const response = getImages(searchInputValue, page);
-      if (response.images.length === 0) {
-        alert(`These are no "${foundSearch}" images`);
-        return;
-      };
-      if (page === 1) {
-        console.log(`We found ${response.totalHits} images`);
-      };
-      setImages(prevState=>[...prevState, ...response.images]);
-      setLoadMoreButton(page < Math.ceil(response.totalHits / 12));
-    } catch (error) {
-      alert(error.message);
-        
-    } finally {
-      
-      setLoader(false);
-    }
-    }, [searchInputValue, page,foundSearch]
-  )
+    if (!foundSearch)
+      return;
+    else {
+      setLoader(true);
+      getImages(foundSearch, page)
+        .then(response => {
+          if (response.images.length === 0) {
+            alert(`These are no "${foundSearch}" images`);
+            return;
+          }
+          if (page === 1) {
+            console.log(`We found ${response.totalHits} images`);
+          }
 
+          setImages(prevState => {
+            console.log("🚀 ~ prevState:", prevState)
+            console.log("🎫 ~ response:", response)
+          
+            return [...prevState, ...response.images]
+          });
+          setLoadMoreButton(page < Math.ceil(response.totalHits / 12));
+        })
+        .catch(error => alert(error.message))
+        .finally(() => setLoader(false));
+    }
+  }, [foundSearch, page]);
   const handleSearchInput = e => {
     setSearchInputValue(e.currentTarget.value.toLowerCase());
   };
