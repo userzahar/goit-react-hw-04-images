@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
 export function Modal({children,modalClose}) {
-
+    // useEffect(() => {
+        
+    // }[modalClose])
     const componentDidMount=()=> {
         window.addEventListener('keydown', handleKeyDown);
         console.log("ok")
