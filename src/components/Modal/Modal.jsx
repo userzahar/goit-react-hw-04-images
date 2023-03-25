@@ -1,25 +1,35 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
 export function Modal({children,modalClose}) {
-    // useEffect(() => {
-        
-    // }[modalClose])
-    const componentDidMount=()=> {
-        window.addEventListener('keydown', handleKeyDown);
-        console.log("ok")
+    const [showModal, setShowModal] = useState(false);
+    useEffect(() => {
+        if (showModal) {
+            console.log("🤶");
+            window.removeEventListener('keydown', handleKeyDown)
+            setShowModal(false);
+        };
+    }, [showModal])
+    
+    const componentDidMount = () => {
+        if (!showModal) {
+            window.addEventListener('keydown', handleKeyDown)
+            console.log("👳‍♂️")
+        };
     };
     
     const handleKeyDown = e => {
         if (e.code === 'Escape') {
+            setShowModal(true);   
             modalClose();
-            window.removeEventListener('keydown', handleKeyDown);
         };
     };
 
     const handleBackdropClick = e => {
-        if(e.target.id === "backdrop") {
+        if (e.target.id === "backdrop") {
+            setShowModal(true)
             modalClose();
         };
     };

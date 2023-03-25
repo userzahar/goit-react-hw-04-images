@@ -19,9 +19,6 @@ export function App() {
   const [modalImgSrc, setModalImgSrc] = useState('');
   const [loader, setLoader] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
-  console.log("🚀 ~ setTotalPages:", setTotalPages)
-  console.log("🚀 ~ totalPages:", totalPages)
-
   useEffect(() => {
     if (!foundSearch)
       return;
@@ -38,9 +35,6 @@ export function App() {
           }
 
           setImages(prevState => {
-            console.log("🚀 ~ prevState:", prevState)
-            console.log("🎫 ~ response:", response)
-          
             return [...prevState, ...response.images]
           });
           setLoadMoreButton(page < Math.ceil(response.totalHits / 12));
