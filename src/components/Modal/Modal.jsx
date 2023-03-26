@@ -11,15 +11,11 @@ export function Modal({children,modalClose}) {
             window.removeEventListener('keydown', handleKeyDown)
             setShowModal(false);
         };
-    }, [showModal])
-    
-    const componentDidMount = () => {
         if (!showModal) {
             window.addEventListener('keydown', handleKeyDown)
             console.log("👳‍♂️")
         };
-    };
-    
+    }, [showModal])
     const handleKeyDown = e => {
         if (e.code === 'Escape') {
             setShowModal(true);   
@@ -33,7 +29,6 @@ export function Modal({children,modalClose}) {
             modalClose();
         };
     };
-    componentDidMount();
         return (
             <DivOverlay id={"backdrop"} onClick={handleBackdropClick}>
                 <DivModal>
