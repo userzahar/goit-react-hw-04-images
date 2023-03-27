@@ -3,42 +3,30 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
-export function Modal({children,modalClose}) {
-    const [showModal, setShowModal] = useState(false);
+export function Modal({ children, modalClose }) {
     useEffect(() => {
-        if (showModal) {
-            console.log("🤶");
+        console.log("Mounting phase: same when componentDidMount runs");
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
             window.removeEventListener('keydown', handleKeyDown)
-            setShowModal(false);
+            console.log("Unmounting phase: same when componentWillUnmount runs");
         };
-        if (!showModal) {
-            window.addEventListener('keydown', handleKeyDown)
-            console.log("👳‍♂️")
-        };
-    }, [showModal])
-    const handleKeyDown = e => {
-        if (e.code === 'Escape') {
-            setShowModal(true);   
-            modalClose();
-        };
-    };
-
+    }, []);
     const handleBackdropClick = e => {
         if (e.target.id === "backdrop") {
-            setShowModal(true)
             modalClose();
         };
     };
-        return (
-            <DivOverlay id={"backdrop"} onClick={handleBackdropClick}>
-                <DivModal>
-                    {children}
-                </DivModal>
-            </DivOverlay>
-        );
+    return (
+        <DivOverlay id={"backdrop"} onClick={handleBackdropClick}>
+            <DivModal>
+                {children}
+            </DivModal>
+        </DivOverlay>
+    );
 };
 
- Modal.propTypes = {
-        children: PropTypes.node,
-        modalClose:PropTypes.func
-    };
+Modal.propTypes = {
+    children: PropTypes.node,
+    modalClose: PropTypes.func
+};
