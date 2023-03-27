@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
