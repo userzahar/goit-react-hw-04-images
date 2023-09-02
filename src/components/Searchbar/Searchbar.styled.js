@@ -68,6 +68,7 @@ export const Input = styled.input`
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
+  padding-bottom: 5px;
 
   &::placeholder {
     font: inherit;
