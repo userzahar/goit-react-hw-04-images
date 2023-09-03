@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
 export function Modal({ children, modalClose }) {
-    const handleKeyDown = (e) => {
-        if (e.code === 'Escape') {  
-            modalClose();
-        };
-    };
+
     useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.code === 'Escape') {  
+                modalClose();
+            };
+        };
         console.log("✔");
         window.addEventListener('keydown', handleKeyDown);
         return () => {
