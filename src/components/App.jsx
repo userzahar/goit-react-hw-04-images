@@ -18,7 +18,7 @@ export function App() {
   const [showModal, setShowModal] = useState(false);
   const [modalImgSrc, setModalImgSrc] = useState('');
   const [loader, setLoader] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
+
   useEffect(() => {
     if (!foundSearch)
       return;
