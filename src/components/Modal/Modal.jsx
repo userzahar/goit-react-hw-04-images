@@ -16,7 +16,7 @@ export function Modal({ children, modalClose }) {
             window.removeEventListener('keydown', handleKeyDown);
             console.log("❌");
         };
-    }, []);
+    }, [modalClose]);
 
     const handleBackdropClick = e => {
         if (e.target.id === "backdrop") {
