@@ -3,19 +3,20 @@ import { useEffect } from 'react';
 import { DivOverlay, DivModal } from './Modal.styled';
 
 export function Modal({ children, modalClose }) {
-    useEffect(() => {
-        console.log("✔");
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown)
-            console.log("❌");
-        };
-    }, []);
-    const handleKeyDown = e => {
+    const handleKeyDown = (e) => {
         if (e.code === 'Escape') {  
             modalClose();
         };
     };
+    useEffect(() => {
+        console.log("✔");
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            console.log("❌");
+        };
+    }, []);
+
     const handleBackdropClick = e => {
         if (e.target.id === "backdrop") {
             modalClose();
